@@ -1,0 +1,62 @@
+version: '3.7'
+
+services:
+  client:
+    container_name: client
+    build: ./client
+    ports:
+      - "3000:3000"
+    environment: 
+      - REACT_APP_SERVICE_URL=http://localhost:8080
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+    depends_on: 
+      - api
+  api:
+    container_name: example_api
+    build:
+      context: ./backend
+      args:
+        - NODE_ENV=development
+        - APP_PORT=${APP_PORT:-4000}
+    ports:
+      - ${EXPOSED_PORT:-4000}:${APP_PORT:-4000}
+      - 9229:9229
+    volumes:
+      - ./backend:/opt/node_app/app:delegated
+      - ./backend/package.json:/opt/node_app/package.json
+      - ./backend/yarn.lock:/opt/node_app/yarn.lock
+      - dist_unused:/opt/node_app/app/dist
+      - modules_unused:/opt/node_app/app/node_modules
+    command: ts-node-dev --respawn src/app.ts
+    depends_on:
+      - db
+    environment:
+      DB_NAME: ${DB_NAME:-example}
+      DB_USERNAME: ${DB_USERNAME:-example}
+      DB_PASSWORD: ${DB_PASSWORD:-example}
+      DB_HOST: ${DB_HOST:-db}
+      JWT_SECRET: ${JWT_SECRET:-secret}
+
+  db:
+    container_name: example_postgres
+    image: postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME:-example}
+      POSTGRES_USER: ${DB_USERNAME:-example}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-example}
+
+  adminer:
+    container_name: example_db_admin
+    image: adminer
+    depends_on:
+      - db
+    ports:
+      - ${ADMINER_PORT:-8080}:8080
+
+
+volumes:
+  dist_unused:
+  modules_unused:
