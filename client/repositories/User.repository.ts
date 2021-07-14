@@ -1,3 +1,6 @@
+import { IUser } from "../interfaces/interfaces";
+import { IUserRepository } from "./IUser.repository";
+
 class UserRepository implements IUserRepository {
     public URL_ENDPOINT: string = '/api/users';
     public async getUsers(): Promise<IUser[]> {
@@ -20,3 +23,5 @@ class UserRepository implements IUserRepository {
         }
     }
 }
+
+export { UserRepository };

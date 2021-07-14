@@ -13,3 +13,5 @@ interface IUser {
     createdAt: string;
     updatedAt: string;
 }
+
+export { ObservableUser, IUser };

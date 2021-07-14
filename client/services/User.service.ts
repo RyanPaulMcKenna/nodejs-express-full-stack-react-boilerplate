@@ -1,3 +1,7 @@
+import { IUser, ObservableUser } from "../interfaces/interfaces";
+import { IUserRepository } from "../repositories/IUser.repository";
+import { IUserService } from "./IUser.Service";
+
 function observableUser(user: IUser): ObservableUser {
     const makeDate = (date: string): Date => new Date(date);
     return {
@@ -22,3 +26,5 @@ class UserService implements IUserService {
         }
     }
 }
+
+export { UserService };
