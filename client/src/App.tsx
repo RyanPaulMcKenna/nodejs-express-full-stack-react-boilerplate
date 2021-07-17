@@ -16,6 +16,12 @@ import { FixedSizeList } from "react-window";
 
 import "./App.css";
 
+import { UserService } from "../services/User.service";
+import { IUserService } from "../services/IUser.Service";
+import { UserRepository } from "../repositories/User.repository"
+
+const service: IUserService = new UserService(new UserRepository());
+
 const useStyles = makeStyles({
   containerRoot: {
     height: "100vh",
@@ -25,15 +31,9 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
   const [posts, setPosts] = useState<[]>([]);
-  // "https://progression-backend-node.herokuapp.com/posts"
-  async function fetchPosts() {
-    await fetch("http://localhost:4000/api/users")
-      .then((data) => data.json())
-      .then((response) => setPosts(response?.data ?? []));
-  }
 
   useEffect(() => {
-    fetchPosts();
+    service.getUsers()
   }, []);
 
   return (
