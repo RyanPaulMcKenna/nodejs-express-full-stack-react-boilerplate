@@ -2,26 +2,37 @@ import { IUser, ObservableUser } from "../interfaces/interfaces";
 import { IUserRepository } from "../repositories/IUser.repository";
 import { IUserService } from "./IUser.Service";
 
-function observableUser(user: IUser): ObservableUser {
-    const makeDate = (date: string): Date => new Date(date);
-    return {
-        id: user.id,
-        name: user.name,
-        surname: user.surname,
-        createdAt: makeDate(user.createdAt),
-        updatedAt: makeDate(user.updatedAt),
-    };
-}
+// function observableUser(user: IUser): ObservableUser {
+//     const makeDate = (date: string): Date => new Date(date);
+//     return {
+//         id: user.id,
+//         name: user.name,
+//         surname: user.surname,
+//         createdAt: makeDate(user.createdAt),
+//         updatedAt: makeDate(user.updatedAt),
+//     };
+// }
 
 class UserService implements IUserService {
     constructor(private userRepository: IUserRepository) {
 
     }
+    private observableUser(user: IUser): ObservableUser {
+        const makeDate = (date: string): Date => new Date(date);
+        return {
+            id: user.id,
+            name: user.name,
+            surname: user.surname,
+            createdAt: makeDate(user.createdAt),
+            updatedAt: makeDate(user.updatedAt),
+        };
+    }
+    
     public async getUsers(): Promise<ObservableUser[]> {
         try {
             const users = await this.userRepository.getUsers();
-            return users.map(user => observableUser(user));
-        } catch (error) { 
+            return users.map(user => this.observableUser(user));
+        } catch (error: any) { 
             throw new Error(error);
         }
     }
