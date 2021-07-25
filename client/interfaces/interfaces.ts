@@ -1,4 +1,4 @@
-interface ObservableUser {
+interface IObservableUser {
     id: number;
     name: string;
     surname: string;
@@ -14,4 +14,4 @@ interface IUser {
     updatedAt: string;
 }
 
-export { ObservableUser, IUser };
+export type { IObservableUser, IUser };

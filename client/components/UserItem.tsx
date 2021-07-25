@@ -1,15 +1,16 @@
 import React from "react";
-import { IUser } from "../interfaces/interfaces";
+import { IObservableUser } from "../interfaces/interfaces";
 
 interface IProps {
-    user: IUser;
+    user: IObservableUser;
 }
 
 export const UserItem = (props: IProps) => (
     <div>
         <h4>User: {props.user.id}</h4>
         <ul>
-            {Object.keys(props.user).map((key: string) => <li> {key}: {props.user[key]} </li>)}
+            {Object.keys(props.user).map((key: string, index: number) => 
+                <li> {key}: {Object.values(props.user)[index]} </li>)}
         </ul>
     </div>
 );

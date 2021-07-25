@@ -1,7 +1,7 @@
-import { ObservableUser } from "../interfaces/interfaces";
+import { IObservableUser } from "../interfaces/interfaces";
 
 interface IUserService {
-    getUsers(): Promise<ObservableUser[]>;
+    getUsers(): Promise<IObservableUser[]>;
 }
 
-export { IUserService };
+export type { IUserService };

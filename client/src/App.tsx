@@ -18,7 +18,8 @@ import "./App.css";
 
 import { UserService } from "../services/User.service";
 import { IUserService } from "../services/IUser.Service";
-import { UserRepository } from "../repositories/User.repository"
+import { UserRepository } from "../repositories/User.repository";
+import UserList from '../components/UserList';
 
 const service: IUserService = new UserService(new UserRepository());
 
@@ -27,6 +28,7 @@ class App extends React.Component{
 
   public render() {
     return (<div>
+      <h1>Example</h1>
       <UserList service={service} />
     </div>);
   }

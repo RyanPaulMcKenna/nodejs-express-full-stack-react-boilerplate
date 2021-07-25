@@ -1,5 +1,5 @@
 import React from "react";
-import { IUser } from "../interfaces/interfaces";
+import { IObservableUser } from "../interfaces/interfaces";
 import { IUserService } from "../services/IUser.Service";
 import { UserItem } from "./UserItem";
 
@@ -8,18 +8,14 @@ interface IProps {
 }
 
 interface IState {
-    users: IUser[];
+    users: IObservableUser[];
 }
 
-export default class UserList extends React.component<IProps, IState> {
+export default class UserList extends React.Component<IProps, IState> {
 
-    public async componentDidMount(){
-        const users = await this.props.service.getUsers();
-        this.setState({ users });
-    }
 
     public render() {
-        const userList: IUser[] = this.state.users;
+        const userList: IObservableUser[] = [];
         return (
             <div>
                 {userList.map((user)=> <UserItem user={user} />)}

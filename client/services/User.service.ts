@@ -1,4 +1,4 @@
-import { IUser, ObservableUser } from "../interfaces/interfaces";
+import { IUser, IObservableUser } from "../interfaces/interfaces";
 import { IUserRepository } from "../repositories/IUser.repository";
 import { IUserService } from "./IUser.Service";
 
@@ -17,7 +17,7 @@ class UserService implements IUserService {
     constructor(private userRepository: IUserRepository) {
 
     }
-    private observableUser(user: IUser): ObservableUser {
+    private observableUser(user: IUser): IObservableUser {
         const makeDate = (date: string): Date => new Date(date);
         return {
             id: user.id,
@@ -28,7 +28,7 @@ class UserService implements IUserService {
         };
     }
     
-    public async getUsers(): Promise<ObservableUser[]> {
+    public async getUsers(): Promise<IObservableUser[]> {
         try {
             const users = await this.userRepository.getUsers();
             return users.map(user => this.observableUser(user));
