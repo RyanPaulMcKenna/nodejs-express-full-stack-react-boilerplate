@@ -4,4 +4,4 @@ interface IUserRepository {
     getUsers(): Promise<IUser[]>;
 }
 
-export { IUserRepository };
+export type { IUserRepository };
