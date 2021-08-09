@@ -12,8 +12,8 @@ services:
     volumes:
       - ./client:/client
       - /client/node_modules
-  #   depends_on: 
-  #     - api
+    depends_on: 
+      - api
   api:
     container_name: example_api
     build:
