@@ -16,10 +16,10 @@ import React, { useEffect, useState } from "react";
 
 import "./App.css";
 
-import { UserService } from "../services/User.service";
-import { IUserService } from "../services/IUser.Service";
-import { UserRepository } from "../repositories/User.repository";
-import UserList from '../components/UserList';
+import { UserService } from "./services/User.service";
+import { IUserService } from "./services/IUser.Service";
+import { UserRepository } from "./repositories/User.repository";
+import UserList from './components/UserList';
 
 const service: IUserService = new UserService(new UserRepository());
 
